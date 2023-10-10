@@ -49,3 +49,11 @@ class RefreshTokenView(views.APIView):
         jwt_tools.store_in_cash(access_token)
         return Response(data={"Refresh token": refresh_token, "Access token":access_token}, status=status.HTTP_200_OK)
 
+class ProfileView(views.APIView):
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    serializer_class = UserSerializer
+    def get(self, request):
+        serializer = self.serializer_class(instance=request.user)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
