@@ -57,3 +57,17 @@ class ProfileView(views.APIView):
         serializer = self.serializer_class(instance=request.user)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
+class LogoutView(views.APIView):
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    def post(self, request):
+        _, refresh_token = request.data.get("refresh_token").split()
+        _, access_token = request.META.get("HTTP_AUTHORIZATION").split()
+        access_token_payload, ac_error = jwt_tools.decode_jwt_token(access_token)
+        refresh_token_payload, ref_error = jwt_tools.decode_jwt_token(refresh_token)
+        if not (access_token_payload.get("user_identifier") == refresh_token_payload.get("user_identifier") == request.user.id):
+            return Response(data={"message": "invalid user id"}, status=status.HTTP_400_BAD_REQUEST)
+        jwt_tools.delete_jti_from_cache(access_token_payload.get("jti"))
+        jwt_tools.delete_jti_from_cache(refresh_token_payload.get("jti"))
+        return Response(data={"message", "Logout successfully"}, status=status.HTTP_200_OK)
+        
