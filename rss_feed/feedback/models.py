@@ -1,4 +1,14 @@
+# In the name of GOD
+
 from django.db import models
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
+
+from core.models import BaseModel
+from account.models import User
+from podcast.models import Podcast, Episode
+
+
 class Like(BaseModel):
     account = models.ForeignKey(User,on_delete=models.CASCADE)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
@@ -17,6 +27,8 @@ class Comment(BaseModel):
 
     def __str__(self):
         return self.account.phone
+
+
 class Playlist(BaseModel):
     title = models.CharField(max_length=40)
     description = models.TextField(blank=False,null=True)
