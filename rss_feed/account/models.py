@@ -49,3 +49,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+    def create_access_token(self, jti=None):
+        return jwt_tools.create_jwt(self, settings.JWT_CONF.get("access_token_exp") , jti)
+    
+    def create_refresh_token(self, jti=None):
+        return jwt_tools.create_jwt(self, settings.JWT_CONF.get("refresh_token_exp"), jti)
