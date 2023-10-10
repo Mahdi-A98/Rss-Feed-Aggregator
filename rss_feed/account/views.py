@@ -24,11 +24,18 @@ class RegisterView(generics.CreateAPIView):
 
 
 class LoginView(views.APIView):
-    pass
 
-class ObtainTokenView(views.APIView):
-    permission_classes = [permissions.AllowAny]
-    serializer_class = ObtainTokenSerializer
+    def post(self, request):
+        user = authenticate(request=request, **request.data)
+        if user:
+            access_token = user.create_access_token()
+            refresh_token = user.create_refresh_token()
+            jwt_tools.store_in_cash(access_token)
+            jwt_tools.store_in_cash(refresh_token)
+            return Response(data={"Refresh token": refresh_token, "Access token":access_token}, status=status.HTTP_200_OK)
+        return Response(data={"message:": "Authentication faild"}, status=status.HTTP_401_UNAUTHORIZED)
+
+
 
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
