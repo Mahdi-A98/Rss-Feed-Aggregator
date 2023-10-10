@@ -4,38 +4,44 @@ services:
     django:
         build: .
         container_name: django
-        command: python manage.py runserver 0.0.0.0:8000
         volumes:
-            - ".:usr/src/app/"
-        ports: "8000:8000"
-        enviroments:
-            - DEBUG=1
-            - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1
-            - CELERY_BROKER=redis://redis:6379/0
-            - CELERY_BACKEND=redis://redis:6379/0
+            - .:/code/
+        ports: 
+            - 8000:8000
         depends_on:
-          - pgdb
-          - redis
+            - postgres
+            - redis
+        networks:
+            - main
     celery:
         build: .
-        command: celery -A rss_feed worker -l INFO
+        command: celery -A rss_feed worker -l INFO -B
         volumes:
-            - ".:usr/src/app/"
-        enviroments:
-            - DEBUG=1
-            - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1
-            - CELERY_BROKER=redis://redis:6379/0
-            - CELERY_BACKEND=redis://redis:6379/0
+            - .:/code/
         depends_on:
-          - django
-          - redis
-    pgdb:
-        image: postgres
-        enviroments:
-            - POSTGRES_DB=rss_feed
-            - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=MaA98218
+            - django
+            - redis
+        networks:
+            - main
+    postgres:
+        image: postgres:16.0
+        environment:
+            POSTGRES_DB: "rss_feed"
+            POSTGRES_USER: "postgres"
+            POSTGRES_PASSWORD: "MaA98218"
+        ports:
+            - 5432:5432
         volumes:
             - pgdata:/var/lib/postgresql/data
+        networks:
+            - main
     redis:
         image: "redis:alpine"
+        ports:
+            - 6379:6379
+        networks:
+            - main
+networks:
+    main:
+volumes:
+    pgdata:
