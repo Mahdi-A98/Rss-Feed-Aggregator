@@ -1,17 +1,23 @@
 from django.shortcuts import render
+from django.contrib.auth import authenticate
 
 # Create your views here.
 from django.contrib.auth import get_user_model
-from rest_framework import views, permissions, status
+from rest_framework import views, permissions, generics, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-
-from .serializers import ObtainTokenSerializer
-from .serializers import UserSerializer
-from .auth import JWTAuthentication
 from rest_framework import views
 
-User = get_user_model()
+from .serializers import UserSerializer
+from .auth import JWTAuthentication
+from . import jwt_tools
+from .models import User
+
+import uuid
+
+# User = get_user_model()
+
+
 
 
 class LoginView(views.APIView):
