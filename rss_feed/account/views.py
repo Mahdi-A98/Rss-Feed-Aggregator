@@ -18,6 +18,9 @@ import uuid
 # User = get_user_model()
 
 
+class RegisterView(generics.CreateAPIView):
+    queryset=User.objects.all()
+    serializer_class = UserSerializer
 
 
 class LoginView(views.APIView):
