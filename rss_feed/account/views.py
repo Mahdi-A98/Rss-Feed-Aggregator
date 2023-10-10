@@ -36,24 +36,16 @@ class LoginView(views.APIView):
         return Response(data={"message:": "Authentication faild"}, status=status.HTTP_401_UNAUTHORIZED)
 
 
+class RefreshTokenView(views.APIView):
 
-    def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
+    def post(self, request):
+        refresh_token = request.data.get("refresh_token")
+        auth = JWTAuthentication()
+        user, payload = auth.authenticat_with_token(refresh_token)
+        jwt_tools.delete_jti_from_cache(payload['jti'])
+        jti = uuid.uuid4().hex
+        access_token = user.create_access_token(jti)
+        refresh_token = user.create_refresh_token(jti)
+        jwt_tools.store_in_cash(access_token)
+        return Response(data={"Refresh token": refresh_token, "Access token":access_token}, status=status.HTTP_200_OK)
 
-        username_or_phone_number = serializer.validated_data.get('username')
-        password = serializer.validated_data.get('password')
-
-        user = User.objects.filter(username=username_or_phone_number).first()
-        if user is None:
-            user = User.objects.filter(phone_number=username_or_phone_number).first()
-
-        if user is None or not user.check_password(password):
-            return Response({'message': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
-
-        # Generate the JWT token
-        jwt_token = JWTAuthentication.create_jwt(user, 5)
-        res = Response({'token': jwt_token})
-        res.set_cookie('refresh_token', jwt_token)
-        res.data = jwt_token
-        return res
