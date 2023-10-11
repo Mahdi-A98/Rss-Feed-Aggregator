@@ -15,3 +15,9 @@ class LikeSerializer(serializers.Serializer):
                 like = Like(content_object = episode, account = request.user)
                 like.save()
         return like
+class CommentSerializer(serializers.Serializer):
+    model = serializers.CharField(max_length = 50)
+    model_id = serializers.IntegerField()
+    text = serializers.CharField()
+
+
