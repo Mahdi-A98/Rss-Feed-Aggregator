@@ -45,3 +45,6 @@ rss_feed/core/migrations/0001_initial.py
 rss_feed/podcast/migrations/0001_initial.py
 rss_feed/feedback/migrations/0001_initial.py
 rss_feed/celerybeat-schedule
+rss_feed/Api_endpoints_logs.log
+rss_feed/celery_tasks_logs.log
+rss_feed/user_actions.log
