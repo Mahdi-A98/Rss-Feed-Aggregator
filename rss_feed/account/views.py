@@ -12,10 +12,12 @@ from .serializers import UserSerializer
 from .auth import JWTAuthentication
 from . import jwt_tools
 from .models import User
+from rss_feed.publisher import Publisher
 
 import uuid
+import json
 
-# User = get_user_model()
+publisher = Publisher()
 
 
 class RegisterView(generics.CreateAPIView):
@@ -32,8 +34,9 @@ class LoginView(views.APIView):
             refresh_token = user.create_refresh_token()
             jwt_tools.store_in_cash(access_token)
             jwt_tools.store_in_cash(refresh_token)
+            publisher.publish(message=f"{user.username} logged in successfully", queue='signup-login')
             return Response(data={"Refresh token": refresh_token, "Access token":access_token}, status=status.HTTP_200_OK)
-        return Response(data={"message:": "Authentication faild"}, status=status.HTTP_401_UNAUTHORIZED)
+        publisher.error_publish(message=f"user with ({json.dumps(request.data)}) cridential faild to login", queue='signup-login')
 
 
 class RefreshTokenView(views.APIView):
@@ -47,6 +50,7 @@ class RefreshTokenView(views.APIView):
         access_token = user.create_access_token(jti)
         refresh_token = user.create_refresh_token(jti)
         jwt_tools.store_in_cash(access_token)
+        publisher.publish(message=f"{user.username} got refresh token", queue='signup-login')
         return Response(data={"Refresh token": refresh_token, "Access token":access_token}, status=status.HTTP_200_OK)
 
 class ProfileView(views.APIView):
@@ -66,8 +70,8 @@ class LogoutView(views.APIView):
         access_token_payload, ac_error = jwt_tools.decode_jwt_token(access_token)
         refresh_token_payload, ref_error = jwt_tools.decode_jwt_token(refresh_token)
         if not (access_token_payload.get("user_identifier") == refresh_token_payload.get("user_identifier") == request.user.id):
-            return Response(data={"message": "invalid user id"}, status=status.HTTP_400_BAD_REQUEST)
+            publisher.publish(message=f"{request.user.username} faild to to logout cause of diffrent AT uid:{access_token_payload.get('user_identifier')} and RT uid:{refresh_token_payload.get('user_identifier')}", queue='signup-login')
         jwt_tools.delete_jti_from_cache(access_token_payload.get("jti"))
         jwt_tools.delete_jti_from_cache(refresh_token_payload.get("jti"))
-        return Response(data={"message", "Logout successfully"}, status=status.HTTP_200_OK)
+        publisher.publish(message=f"{request.user.username} logged out", queue='signup-login')
         
