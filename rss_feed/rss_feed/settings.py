@@ -110,6 +110,13 @@ DATABASES = {
     }
 }
 
+CELERY_BEAT_SCHEDULE = {
+    "sample_task": {
+        "task": "podcast.tasks.update_all_podcast",
+        "schedule": crontab(minute="*/1"),
+    },
+}
+
 JWT_CONF = {
     "token_prefix": "Bearer",
     "access_token_exp": 35,
