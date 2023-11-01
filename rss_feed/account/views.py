@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate
 
 # Create your views here.
 from django.contrib.auth import get_user_model
+from django.utils.translation import gettext_lazy as _
 from rest_framework import views, permissions, generics, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -24,6 +25,12 @@ class RegisterView(generics.CreateAPIView):
     queryset=User.objects.all()
     serializer_class = UserSerializer
 
+    def finalize_response(self, request, response, *args, **kwargs):
+        response = super().finalize_response(request, response, *args, **kwargs)
+        # my code
+        publisher.publish(message="user registered successfully", queue='signup-login')
+        return response
+
 
 class LoginView(views.APIView):
 
@@ -37,6 +44,7 @@ class LoginView(views.APIView):
             publisher.publish(message=f"{user.username} logged in successfully", queue='signup-login')
             return Response(data={"Refresh token": refresh_token, "Access token":access_token}, status=status.HTTP_200_OK)
         publisher.error_publish(message=f"user with ({json.dumps(request.data)}) cridential faild to login", queue='signup-login')
+        return Response(data={"message:": str(_("Authentication faild"))}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class RefreshTokenView(views.APIView):
@@ -71,7 +79,9 @@ class LogoutView(views.APIView):
         refresh_token_payload, ref_error = jwt_tools.decode_jwt_token(refresh_token)
         if not (access_token_payload.get("user_identifier") == refresh_token_payload.get("user_identifier") == request.user.id):
             publisher.publish(message=f"{request.user.username} faild to to logout cause of diffrent AT uid:{access_token_payload.get('user_identifier')} and RT uid:{refresh_token_payload.get('user_identifier')}", queue='signup-login')
+            return Response(data={"message": str(_("invalid user id"))}, status=status.HTTP_400_BAD_REQUEST)
         jwt_tools.delete_jti_from_cache(access_token_payload.get("jti"))
         jwt_tools.delete_jti_from_cache(refresh_token_payload.get("jti"))
         publisher.publish(message=f"{request.user.username} logged out", queue='signup-login')
+        return Response(data={"message", str(_("Logout successfully"))}, status=status.HTTP_200_OK)
         
