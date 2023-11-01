@@ -57,8 +57,20 @@ services:
             - redis
         networks:
             - main
-    postgres:
-        image: postgres:16.0
+
+    counsumers:
+        container_name: consumers
+        build: .
+        command: python3 manage.py runconsumers
+        volumes:
+            - .:/code/
+        networks:
+            - main
+        depends_on:
+            - rabbitmq
+            - django
+        restart: always
+
         environment:
             POSTGRES_DB: "rss_feed"
             POSTGRES_USER: "postgres"
