@@ -101,3 +101,7 @@ networks:
     main:
 volumes:
     pgdata:
+    kibana_data:
+    elasticsearch_data:
+    rabbitmq_data:
+    rabbitmq_log:
