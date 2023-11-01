@@ -134,11 +134,17 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
+USE_L10N = True
 
 USE_TZ = True
+
+LANGUAGES= [
+    ("fa", _("Persian")),
+    ("en", _("English")),
+]
 
 
 # Static files (CSS, JavaScript, Images)
