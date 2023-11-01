@@ -180,3 +180,5 @@ ELASTICSEARCH_DSL = {
     },
 }
 
+RABBITMQ_HOST = "rabbitmq"
+
