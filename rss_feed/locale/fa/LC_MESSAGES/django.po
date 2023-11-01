@@ -1,0 +1,87 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-31 23:41+0330\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: account/models.py:15
+msgid "email address"
+msgstr "ایمیل"
+
+#: account/models.py:17
+msgid "first name"
+msgstr "نام"
+
+#: account/models.py:18
+msgid "last name"
+msgstr "نام خانوادگی"
+
+#: account/models.py:22
+msgid "date joined"
+msgstr "تاریخ عضویت"
+
+#: account/models.py:31
+msgid "user"
+msgstr "کاربر"
+
+#: account/models.py:32
+msgid "users"
+msgstr "کاربران"
+
+#: account/views.py:47
+msgid "Authentication faild"
+msgstr "اعتبارسنجی ناموفق"
+
+#: account/views.py:82
+msgid "invalid user id"
+msgstr "شناسه کاربری نامعتبر"
+
+#: account/views.py:86
+msgid "Logout successfully"
+msgstr "خروج موفقیت آمیز"
+
+#: podcast/views.py:45
+msgid "URL is saved"
+msgstr "لینک ثبت شده است"
+
+#: podcast/views.py:55
+msgid "URL is invalid!"
+msgstr "لینک نامعتبر است"
+
+#: podcast/views.py:58
+msgid "Rss file save in database successfully."
+msgstr "فایل ار اس اس با موفقیت در دیتابیس ذخیره شد"
+
+#: podcast/views.py:70
+msgid "xml is invalid!"
+msgstr "ایکس ام ال نامعتبر است"
+
+#: podcast/views.py:73
+msgid "xml is going to update"
+msgstr "ایکس ام ال در حال بروزرسانی است"
+
+#: podcast/views.py:86 podcast/views.py:107 podcast/views.py:121
+msgid "success"
+msgstr "موفقیت"
+
+#: rss_feed/settings.py:194
+msgid "Persian"
+msgstr "فارسی"
+
+#: rss_feed/settings.py:195
+msgid "English"
+msgstr "انگلیسی"
