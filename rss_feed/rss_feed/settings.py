@@ -110,6 +110,12 @@ DATABASES = {
     }
 }
 
+JWT_CONF = {
+    "token_prefix": "Bearer",
+    "access_token_exp": 35,
+    "refresh_token_exp": 720,
+}
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
