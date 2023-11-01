@@ -171,5 +171,12 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALL_CREDENTIALS = True
 
 # celery sttings
-CELERY_BROKER_URL =  os.environ.get('CELERY_BROKER_UR', "redis://localhost:6379/0") 
-CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESUALT_BACKEND', "redis://localhost:6379/0") 
+ELASTICSEARCH_HOST = 'elasticsearch'
+ELASTICSEARCH_PORT = 9200
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': 'elasticsearch:9200'
+        # 'hosts': 'http://localhost:9200'
+    },
+}
+
