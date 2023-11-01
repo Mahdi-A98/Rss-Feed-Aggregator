@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
     rabbitmq:
         container_name: rabbitmq
@@ -47,6 +45,7 @@ services:
             - redis
         networks:
             - main
+
     celery:
         build: .
         command: celery -A rss_feed worker -l INFO -B
@@ -85,6 +84,8 @@ services:
             - 9200:9200
         networks:
             - main
+        restart: always
+
     kibana:
         image: kibana:7.17.3
         container_name: kibana
