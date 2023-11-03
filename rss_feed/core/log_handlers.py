@@ -12,8 +12,8 @@ class LogSender:
     def __init__(self, elk) -> None:
         self.elk = elk
 
-    def writelog(self, message, formatter) :
-        index_name = f'log_{time.strftime("%Y_%m_%d")}'
+    def writelog(self, message, formatter, db_name=None) :
+        index_name = db_name or f'log_{time.strftime("%Y_%m_%d")}'
         timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
         log_data = {'message' : formatter(message)}
         log_data['timestamp'] = timestamp
@@ -24,7 +24,8 @@ class LogSender:
         
 
 class ElasticHandler(Handler) :
-    def __init__(self, host, *args, **kwargs) :
+    def __init__(self, host,*args, **kwargs) :
+        self.db_name = kwargs.pop('db_name', None)
         super().__init__(*args, **kwargs)
         self.host = host
         # self.formatter = kwargs.get('formatter')
@@ -33,7 +34,7 @@ class ElasticHandler(Handler) :
 
     def emit(self, record) :
         try:
-            self.sender.writelog(record, self.format)
+            self.sender.writelog(record, self.format, db_name=self.db_name)
         except RecursionError:
             raise
         except Exception:
