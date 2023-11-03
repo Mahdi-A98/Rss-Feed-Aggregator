@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-31 23:41+0330\n"
+"POT-Creation-Date: 2023-11-03 15:37+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,42 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: account/auth.py:25
+msgid "Token should be provided"
+msgstr "توکن ارائه نشده است"
+
+#: account/auth.py:33
+msgid "Token prefix doesn't match"
+msgstr "پیشوند توکن اشتباه است"
+
+#: account/auth.py:40
+msgid "User identifier not found in JWT"
+msgstr "شناسه کاربر در توکن یافت نشد"
+
+#: account/auth.py:43
+msgid "Token expired"
+msgstr "توکن منقضی شده است"
+
+#: account/auth.py:50
+msgid "User not found"
+msgstr "کاربر پیدا نشد"
+
+#: account/auth.py:60
+msgid "You should provide credentials !!"
+msgstr "لطفاً اصلاعات مورد نیاز را وارد نمایید"
+
+#: account/jwt_tools.py:22
+msgid "Invalid signature"
+msgstr "امضای اشتباه"
+
+#: account/jwt_tools.py:24
+msgid "Token has expired"
+msgstr "توکن منقضی شده است"
+
+#: account/jwt_tools.py:34
+msgid "Token not found"
+msgstr "توکن یافت نشد"
 
 #: account/models.py:15
 msgid "email address"
@@ -42,39 +78,39 @@ msgstr "کاربر"
 msgid "users"
 msgstr "کاربران"
 
-#: account/views.py:47
+#: account/views.py:48
 msgid "Authentication faild"
 msgstr "اعتبارسنجی ناموفق"
 
-#: account/views.py:82
+#: account/views.py:83
 msgid "invalid user id"
 msgstr "شناسه کاربری نامعتبر"
 
-#: account/views.py:86
+#: account/views.py:87
 msgid "Logout successfully"
 msgstr "خروج موفقیت آمیز"
 
-#: podcast/views.py:45
+#: podcast/views.py:43
 msgid "URL is saved"
 msgstr "لینک ثبت شده است"
 
-#: podcast/views.py:55
+#: podcast/views.py:53
 msgid "URL is invalid!"
 msgstr "لینک نامعتبر است"
 
-#: podcast/views.py:58
+#: podcast/views.py:56
 msgid "Rss file save in database successfully."
 msgstr "فایل ار اس اس با موفقیت در دیتابیس ذخیره شد"
 
-#: podcast/views.py:70
+#: podcast/views.py:68
 msgid "xml is invalid!"
 msgstr "ایکس ام ال نامعتبر است"
 
-#: podcast/views.py:73
+#: podcast/views.py:71
 msgid "xml is going to update"
 msgstr "ایکس ام ال در حال بروزرسانی است"
 
-#: podcast/views.py:86 podcast/views.py:107 podcast/views.py:121
+#: podcast/views.py:84 podcast/views.py:105 podcast/views.py:119
 msgid "success"
 msgstr "موفقیت"
 
