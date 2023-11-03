@@ -109,6 +109,22 @@ DATABASES = {
         'PASSWORD': os.environ.get('PASSWORD')
     }
 }
+CACHES = {
+    "default":{
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/0",
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        },
+    },
+    "users_white_list":{
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://redis:6379/1",
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        },
+    },
+}
 
 CELERY_BEAT_SCHEDULE = {
     "sample_task": {
