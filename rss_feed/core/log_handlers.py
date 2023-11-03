@@ -18,9 +18,7 @@ class LogSender:
         log_data = {'message' : formatter(message)}
         log_data['timestamp'] = timestamp
         log_data['level'] = message.levelname
-        print("<>"*20, " in elasticsearch write log ", "<>"*20)
         self.elk.index(index=index_name, document=log_data)
-        print("<>"*20, f" index name: {index_name} ", "<>"*20)
         
 
 class ElasticHandler(Handler) :
@@ -28,7 +26,6 @@ class ElasticHandler(Handler) :
         self.db_name = kwargs.pop('db_name', None)
         super().__init__(*args, **kwargs)
         self.host = host
-        # self.formatter = kwargs.get('formatter')
         self.elk = Elasticsearch(self.host)
         self.sender = LogSender(elk=self.elk)
 
