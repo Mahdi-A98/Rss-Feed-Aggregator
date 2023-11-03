@@ -223,3 +223,70 @@ ELASTICSEARCH_DSL = {
 
 RABBITMQ_HOST = "rabbitmq"
 
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "user_actions_file_handler":{
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": "user_actions.log",
+            "formatter": "main_formatter",
+        },
+        "celery_file_handler":{
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": "celery_tasks_logs.log",
+            "formatter": "main_formatter",
+        },
+        "Api_file_handler":{
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": "Api_endpoints_logs.log",
+            "formatter": "main_formatter",
+        },
+
+        "user_actions_elastic_handler": {
+            "level": "INFO",
+            "host": f"http://{ELASTICSEARCH_HOST}:{ELASTICSEARCH_PORT}",
+            "class": "core.log_handlers.ElasticHandler",
+        },
+        "Api_elastic_handler": {
+            "level": "INFO",
+            "host": f"http://{ELASTICSEARCH_HOST}:{ELASTICSEARCH_PORT}",
+            "class": "core.log_handlers.ElasticHandler",
+            "db_name": "Api_logs",
+            "daily_index": True,
+        },
+        "celery_elastic_handler": {
+            "level": "INFO",
+            "host": f"http://{ELASTICSEARCH_HOST}:{ELASTICSEARCH_PORT}",
+            "class": "core.log_handlers.ElasticHandler",
+            "db_name": "celery_tasks",
+            "daily_index": True,
+        },
+    },
+    "formatters": {
+        "main_formatter":{
+            "format": "{levelname} || {asctime} || {module} || {process:d} || {thread:d} || {message}",
+            "style": "{",
+        },
+    },
+    "loggers": {
+        "user_actions": {
+            "handlers": ["user_actions_file_handler", "user_actions_elastic_handler"], 
+            "level": "INFO",
+            "propagate": False
+        },
+        "celery_tasks": {
+            "handlers": ["celery_file_handler", "celery_elastic_handler"], 
+            "level": "INFO",
+            "propagate": False
+        },
+        "API_logger": {
+            "handlers": ["Api_file_handler", "Api_elastic_handler"], 
+            "level": "INFO",
+            "propagate": False
+        },
+    }
+}
