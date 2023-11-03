@@ -9,7 +9,7 @@ from django.apps import apps
 class MyUserManager(BaseUserManager):
     use_in_migrations = True
 
-    def _create_user(self, username, email, password, **extra_fields):
+    def _create_user(self, username, password, email, **extra_fields):
         """
         Create and save a user with the given username, email, and password.
         """
@@ -25,12 +25,12 @@ class MyUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, username=None, email=None, password=None, **extra_fields):
+    def create_user(self, username=None,  password=None,  email=None, **extra_fields):
         extra_fields.setdefault("is_staff", False)
         extra_fields.setdefault("is_superuser", False)
-        return self._create_user(username=username, email=email, password=password, **extra_fields)
+        return self._create_user(username=username,  password=password, email=email, **extra_fields)
 
-    def create_superuser(self, username=None, email=None, password=None, **extra_fields):
+    def create_superuser(self, username=None, password=None,  email=None,**extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
 
@@ -39,4 +39,4 @@ class MyUserManager(BaseUserManager):
         if extra_fields.get("is_superuser") is not True:
             raise ValueError("Superuser must have is_superuser=True.")
 
-        return self._create_user(username=username, email=email, password=password, **extra_fields)
+        return self._create_user(username=username, password=password, email=email, **extra_fields)

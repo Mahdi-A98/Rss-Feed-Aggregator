@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.mail import send_mail
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, AbstractUser
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
@@ -12,7 +12,7 @@ from . import jwt_tools
 class User(AbstractBaseUser, PermissionsMixin):
 
     username = models.CharField(max_length=150, unique=True)
-    email = models.EmailField(_("email address"), blank=True, null=True, unique=True)
+    email = models.EmailField(_("email address"), blank=True)
 
     first_name = models.CharField(_("first name"), max_length=150, blank=True)
     last_name = models.CharField(_("last name"), max_length=150, blank=True)
