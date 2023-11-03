@@ -174,7 +174,9 @@ LANGUAGES= [
     ("fa", _("Persian")),
     ("en", _("English")),
 ]
-
+LOCALE_PATHS = [
+BASE_DIR / "locale",
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
