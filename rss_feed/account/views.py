@@ -83,5 +83,5 @@ class LogoutView(views.APIView):
         jwt_tools.delete_jti_from_cache(access_token_payload.get("jti"))
         jwt_tools.delete_jti_from_cache(refresh_token_payload.get("jti"))
         publisher.publish(message=f"{request.user.username} logged out", queue='signup-login')
-        return Response(data={"message", str(_("Logout successfully"))}, status=status.HTTP_200_OK)
+        return Response(data={"message": str(_("Logout successfully"))}, status=status.HTTP_200_OK)
         

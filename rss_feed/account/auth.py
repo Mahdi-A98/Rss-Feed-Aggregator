@@ -11,6 +11,8 @@ from rest_framework.exceptions import AuthenticationFailed, ParseError
 from datetime import datetime, timedelta
 from . import jwt_tools
 
+from django.utils.translation import gettext_lazy as _
+
 User = get_user_model()
 
 class JWTAuthentication(authentication.BaseAuthentication):
@@ -20,7 +22,7 @@ class JWTAuthentication(authentication.BaseAuthentication):
             return self.authenticat_with_token(access_token)
         if refresh_token:
             return self.authenticat_with_token(refresh_token)
-        raise AuthenticationFailed("Token should be provided")
+        raise AuthenticationFailed(str(_("Token should be provided")))
         
 
 
@@ -28,24 +30,24 @@ class JWTAuthentication(authentication.BaseAuthentication):
     def authenticat_with_token(self, jwt_token):
         prefix, jwt_token = jwt_token.split()  # clean the token
         if prefix != settings.JWT_CONF.get("token_prefix"): 
-            raise AuthenticationFailed("Token prefix doesn't match")
+            raise AuthenticationFailed(str(_("Token prefix doesn't match")))
 
         payload, error = jwt_tools.decode_jwt_token(jwt_token)
         if payload is None:
             raise error
         user_id = payload.get('user_identifier')
         if user_id is None:
-            raise AuthenticationFailed('User identifier not found in JWT')
+            raise AuthenticationFailed(str(_('User identifier not found in JWT')))
 
         if not jwt_tools.verify_exp(payload): 
-            raise AuthenticationFailed("Token expired")
+            raise AuthenticationFailed(str(_("Token expired")))
         
         if not user_id == jwt_tools.verify_jti(payload):
             raise AuthenticationFailed("Invalid user")
 
         user = User.objects.filter(id=user_id).first()
         if user is None:
-            raise AuthenticationFailed('User not found')
+            raise AuthenticationFailed(str(_('User not found')))
 
         return user, payload
 
@@ -55,7 +57,7 @@ class UserAuthBackend(ModelBackend):
         username=username
         password=password
         if username is None or password is None:
-            raise AuthenticationFailed("You should provide credentials !!")
+            raise AuthenticationFailed(str(_("You should provide credentials !!")))
         try:
             user= User.objects.get(Q(email=username) | Q(username=username))
             if user:

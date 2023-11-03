@@ -4,6 +4,7 @@ from django.core.cache import caches
 from django.conf import settings
 
 from rest_framework.exceptions import AuthenticationFailed, ParseError
+from django.utils.translation import gettext_lazy as _ 
 
 from datetime import timedelta, datetime
 import uuid
@@ -18,9 +19,9 @@ def decode_jwt_token(jwt_token):
         # jw_key = jwk_from_dict({'kty':'oct', 'k':settings.SECRET_KEY[:-1]})
         payload = jwt.decode(jwt_token, settings.SECRET_KEY, algorithms=['HS256'])
     except jwt.exceptions.InvalidSignatureError:
-        return None, AuthenticationFailed('Invalid signature')
+        return None, AuthenticationFailed(str(_('Invalid signature')))
     except jwt.exceptions.ExpiredSignatureError:
-        return None, AuthenticationFailed('Token has expired')
+        return None, AuthenticationFailed(str(_('Token has expired')))
     except Exception as e:
         print(e)
         return None, ParseError()
@@ -30,7 +31,7 @@ def decode_jwt_token(jwt_token):
 def verify_jti(payload:dict):
     jti = payload.get('jti')
     if not caches['users_white_list'].get(jti):
-        raise AuthenticationFailed('Token not found')
+        raise AuthenticationFailed(str(_('Token not found')))
     if user_id:= caches['users_white_list'].get(jti):
         return user_id
     return None
