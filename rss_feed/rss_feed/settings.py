@@ -1,3 +1,4 @@
+# In the name of GOD
 """
 Django settings for rss_feed project.
 
@@ -10,9 +11,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from pathlib import Path
-import os
+from django.utils.translation import gettext_lazy as _
+
+from celery.schedules import crontab
 from dotenv import load_dotenv
+from pathlib import Path
+import logging
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv()
@@ -47,9 +52,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'core',
     'account',
     'rest_framework',
-    'core',
     'podcast',
     'feedback',
     'api'
@@ -93,12 +98,6 @@ WSGI_APPLICATION = 'rss_feed.wsgi.application'
 
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
