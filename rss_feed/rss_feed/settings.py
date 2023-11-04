@@ -231,19 +231,19 @@ LOGGING = {
         "user_actions_file_handler":{
             "level": "DEBUG",
             "class": "logging.FileHandler",
-            "filename": "user_actions.log",
+            "filename": "logs/user_actions.log",
             "formatter": "main_formatter",
         },
         "celery_file_handler":{
             "level": "DEBUG",
             "class": "logging.FileHandler",
-            "filename": "celery_tasks_logs.log",
+            "filename": "logs/celery_tasks_logs.log",
             "formatter": "main_formatter",
         },
         "Api_file_handler":{
             "level": "INFO",
             "class": "logging.FileHandler",
-            "filename": "Api_endpoints_logs.log",
+            "filename": "logs/Api_endpoints_logs.log",
             "formatter": "main_formatter",
         },
 

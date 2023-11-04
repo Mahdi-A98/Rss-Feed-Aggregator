@@ -48,3 +48,6 @@ rss_feed/celerybeat-schedule
 rss_feed/Api_endpoints_logs.log
 rss_feed/celery_tasks_logs.log
 rss_feed/user_actions.log
+rss_feed/logs/Api_endpoints_logs.log
+rss_feed/logs/celery_tasks_logs.log
+rss_feed/logs/user_actions.log
