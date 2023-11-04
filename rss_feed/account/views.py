@@ -73,8 +73,8 @@ class LogoutView(views.APIView):
     authentication_classes = (JWTAuthentication,)
     permission_classes = (IsAuthenticated,)
     def post(self, request):
-        _, refresh_token = request.data.get("refresh_token").split()
-        _, access_token = request.META.get("HTTP_AUTHORIZATION").split()
+        bearer, refresh_token = request.data.get("refresh_token").split()
+        bearer, access_token = request.META.get("HTTP_AUTHORIZATION").split()
         access_token_payload, ac_error = jwt_tools.decode_jwt_token(access_token)
         refresh_token_payload, ref_error = jwt_tools.decode_jwt_token(refresh_token)
         if not (access_token_payload.get("user_identifier") == refresh_token_payload.get("user_identifier") == request.user.id):
