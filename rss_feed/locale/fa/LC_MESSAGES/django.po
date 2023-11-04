@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-03 15:37+0330\n"
+"POT-Creation-Date: 2023-11-04 09:13+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,46 +78,79 @@ msgstr "کاربر"
 msgid "users"
 msgstr "کاربران"
 
-#: account/views.py:48
+#: account/views.py:47
 msgid "Authentication faild"
 msgstr "اعتبارسنجی ناموفق"
 
-#: account/views.py:83
+#: account/views.py:82
 msgid "invalid user id"
 msgstr "شناسه کاربری نامعتبر"
 
-#: account/views.py:87
+#: account/views.py:86
 msgid "Logout successfully"
 msgstr "خروج موفقیت آمیز"
 
-#: podcast/views.py:43
+#: feedback/views.py:22
+#, python-brace-format
+msgid ""
+" you liked {like.content_object.title} {like.content_object.__class__."
+"__name__} successfully"
+msgstr ""
+" شما  {like.content_object.title} {like.content_object.__class__.__name__} "
+"را با وفقیت لایک کردید"
+
+#: feedback/views.py:34
+#, python-brace-format
+msgid ""
+" you comment on {comment.content_object.title} {comment.content_object."
+"__class__.__name__} successfully"
+msgstr ""
+" نظر شما روی {comment.content_object.title} {comment.content_object."
+"__class__.__name__} با موفقیت ثبت شد"
+
+#: feedback/views.py:46
+msgid "Playlist created successfully"
+msgstr "پلی لیست با موفقیت ساخته شد"
+
+#: feedback/views.py:56
+#, fuzzy
+#| msgid "playlist with this id not found"
+msgid "playlist not found"
+msgstr " پلی لیست با این شناسه پیدا نشد"
+
+#: feedback/views.py:60
+#, fuzzy
+#| msgid "Logout successfully"
+msgid "Playlist updated successfully"
+msgstr "پلی لیست با موفقیت بروزرسانی شد"
+
+#: podcast/views.py:39
 msgid "URL is saved"
 msgstr "لینک ثبت شده است"
 
-#: podcast/views.py:53
+#: podcast/views.py:48
 msgid "URL is invalid!"
 msgstr "لینک نامعتبر است"
 
-#: podcast/views.py:56
+#: podcast/views.py:50
 msgid "Rss file save in database successfully."
 msgstr "فایل ار اس اس با موفقیت در دیتابیس ذخیره شد"
 
-#: podcast/views.py:68
+#: podcast/views.py:61
 msgid "xml is invalid!"
 msgstr "ایکس ام ال نامعتبر است"
 
-#: podcast/views.py:71
+#: podcast/views.py:63
 msgid "xml is going to update"
 msgstr "ایکس ام ال در حال بروزرسانی است"
 
-#: podcast/views.py:84 podcast/views.py:105 podcast/views.py:119
-msgid "success"
-msgstr "موفقیت"
-
-#: rss_feed/settings.py:194
+#: rss_feed/settings.py:173
 msgid "Persian"
 msgstr "فارسی"
 
-#: rss_feed/settings.py:195
+#: rss_feed/settings.py:174
 msgid "English"
 msgstr "انگلیسی"
+
+#~ msgid "success"
+#~ msgstr "موفقیت"
