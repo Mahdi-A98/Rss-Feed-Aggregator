@@ -9,8 +9,6 @@ from account.auth import JWTAuthentication
 from .models import Podcast, Episode
 from .serializer import PodcastSerializer, PodcastUrlSerializer
 from .utils import Parser
-from feedback.serializer import LikeSerializer, CommentSerializer, PlaylistSerializer
-from feedback.models import Like, Comment, Playlist
 
 from .tasks import save_podcast
 from django.utils.translation import gettext_lazy as _
@@ -63,51 +61,3 @@ class UpdatePodcastView(APIView):
             raise Response({'message':str(_('xml is invalid!'))}, status=status.HTTP_400_BAD_REQUEST)
         update_podcast.delay(data)
         return Response({"message":str(_("xml is going to update"))}, status.HTTP_201_CREATED)
-
-
-
-class LikeView(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes=[IsAuthenticated]
-
-    def post(self, request):
-        print(request.user)
-        like_serializer = LikeSerializer(data = request.data, context={"request": request})
-        like_serializer.is_valid(raise_exception=True)
-        like_serializer.save()
-        return Response(data={"message":str(_("success"))}.update(like_serializer.data), status=status.HTTP_201_CREATED)
-
-
-class CommentView(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes=[IsAuthenticated]
-
-    def post(self, request):
-        print(request.user)
-        comment_serializer = CommentSerializer(data = request.data)
-        comment_serializer.is_valid(raise_exception=True)
-        if comment_serializer.validated_data.get('model')=="podcast":
-            podcast = Podcast.objects.get(id = comment_serializer.validated_data.get("model_id"))
-            if podcast:
-                comment = Comment(content_object = podcast, account = request.user, text = comment_serializer.validated_data.get("text"))
-                comment.save()
-        elif comment_serializer.validated_data.get('model') == "episode":
-            episode = Episode.objects.get(id = comment_serializer.validated_data.get("model_id"))
-            if episode:
-                comment = Comment(content_object = episode, account = request.user, text = comment_serializer.validated_data.get("text"))
-                comment.save()
-        return Response(data={"message":str(_("success"))}, status=status.HTTP_201_CREATED)
-
-
-class PlaylistView(APIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes=[IsAuthenticated]
-
-    def post(self, request):
-        DATA =  request.data.copy()
-        DATA['account'] = request.user
-        DATA.pop("playlist")
-        playlist_serializer = PlaylistSerializer(data = DATA, partial = True ,instance=Playlist.objects.get(id=request.data.get("playlist")))
-        playlist_serializer.is_valid(raise_exception=True)
-        playlist_serializer.save()
-        return Response(data={"message":str(_("success"))}, status=status.HTTP_201_CREATED)
