@@ -13,13 +13,13 @@ class LogSender:
         self.elk = elk
 
     def writelog(self, message, formatter, db_name=None, daily_index=False) :
-        suffix = str(time.strftime("%Y_%m_%d")) if daily_index else ""
+        suffix = "_" + str(time.strftime("%Y_%m_%d")) if daily_index else ""
         index_name = db_name + suffix or f'log_{time.strftime("%Y_%m_%d")}'
         timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
         log_data = {'message' : formatter(message)}
         log_data['timestamp'] = timestamp
         log_data['level'] = message.levelname
-        self.elk.index(index=index_name, document=log_data)
+        self.elk.index(index=index_name.lower(), document=log_data)
         
 
 class ElasticHandler(Handler) :
