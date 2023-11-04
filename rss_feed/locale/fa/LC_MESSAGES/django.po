@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-04 09:13+0330\n"
+"POT-Creation-Date: 2023-11-04 14:36+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,23 +124,23 @@ msgstr " پلی لیست با این شناسه پیدا نشد"
 msgid "Playlist updated successfully"
 msgstr "پلی لیست با موفقیت بروزرسانی شد"
 
-#: podcast/views.py:39
+#: podcast/views.py:46
 msgid "URL is saved"
 msgstr "لینک ثبت شده است"
 
-#: podcast/views.py:48
+#: podcast/views.py:55
 msgid "URL is invalid!"
 msgstr "لینک نامعتبر است"
 
-#: podcast/views.py:50
+#: podcast/views.py:57
 msgid "Rss file save in database successfully."
 msgstr "فایل ار اس اس با موفقیت در دیتابیس ذخیره شد"
 
-#: podcast/views.py:61
+#: podcast/views.py:68
 msgid "xml is invalid!"
 msgstr "ایکس ام ال نامعتبر است"
 
-#: podcast/views.py:63
+#: podcast/views.py:70
 msgid "xml is going to update"
 msgstr "ایکس ام ال در حال بروزرسانی است"
 

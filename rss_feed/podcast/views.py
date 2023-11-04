@@ -12,7 +12,7 @@ from feedback.models import Playlist
 from .serializer import PodcastSerializer, PodcastUrlSerializer, EpisodeSerializer
 from .utils import Parser
 
-from .tasks import save_podcast
+from .tasks import save_podcast, update_podcast
 from django.utils.translation import gettext_lazy as _
 
 
