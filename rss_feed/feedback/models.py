@@ -16,7 +16,7 @@ class Like(BaseModel):
     content_object = GenericForeignKey("content_type", "object_id")
 
     def __str__(self):
-        return self.account
+        return f"{self.account.username} liked {self.content_object.title} {self.content_object.__class__.__name__}"
 
 class Comment(BaseModel):
     account = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -26,7 +26,7 @@ class Comment(BaseModel):
     content_object = GenericForeignKey("content_type", "object_id")
 
     def __str__(self):
-        return self.account.phone
+        return f"{self.account.username} commented on  {self.content_object.title} {self.content_object.__class__.__name__}"
 
 
 class Playlist(BaseModel):
@@ -41,4 +41,4 @@ class Playlist(BaseModel):
         unique_together = ('account', 'title')
 
     def __str__(self) -> str:
-        return self.title
+        return f"{self.title} playlist for {self.account.username} "
