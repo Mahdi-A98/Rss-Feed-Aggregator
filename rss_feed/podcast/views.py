@@ -1,30 +1,30 @@
 # In the name of GOD
 
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import generics
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 from account.auth import JWTAuthentication
 from .models import Podcast, Episode
-from .serializer import PodcastSerializer, PodcastUrlSerializer
+from feedback.models import Playlist
+from .serializer import PodcastSerializer, PodcastUrlSerializer, EpisodeSerializer
 from .utils import Parser
 
 from .tasks import save_podcast
 from django.utils.translation import gettext_lazy as _
 
 
-class PodcastListView(APIView):
-    def get(self, request):
-        query = Podcast.objects.all()
-        serializer = PodcastSerializer(instance=query, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+class PodcastListView(generics.ListAPIView):
+    serializer_class = PodcastSerializer
+    queryset = Podcast.objects.all()
 
-class EpisodeListView(APIView):
-    def get(self, request):
-        queryset = Episode.objects.all()
-        serializer_data = EpisodeSerializer(queryset, many=True)
-        return Response(serializer_data.data, status=status.HTTP_200_OK)
+
+class EpisodeListView(generics.ListAPIView):
+    serializer_class = EpisodeSerializer
+    queryset = Episode.objects.all()
+
 
 
 class AddPodcastUrlView(APIView):
