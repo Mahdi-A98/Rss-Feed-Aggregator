@@ -23,7 +23,14 @@ class PodcastListView(generics.ListAPIView):
 
 class EpisodeListView(generics.ListAPIView):
     serializer_class = EpisodeSerializer
-    queryset = Episode.objects.all()
+    # queryset = Episode.objects.all()
+
+    def get_queryset(self):
+        podcast = Podcast.objects.filter(id=self.kwargs.get('podcast_id', 0))
+        if podcast:
+            episode_list = Episode.objects.filter(episode_podcast=podcast.first()).prefetch_related("episode_podcast")
+        return episode_list
+        
 
 
 
