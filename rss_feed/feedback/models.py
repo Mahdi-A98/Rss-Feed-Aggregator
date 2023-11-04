@@ -37,6 +37,8 @@ class Playlist(BaseModel):
     podcasts = models.ManyToManyField(Podcast)
     episodes = models.ManyToManyField(Episode)
 
+    class Meta:
+        unique_together = ('account', 'title')
 
     def __str__(self) -> str:
         return self.title
