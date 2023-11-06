@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-04 14:36+0330\n"
+"POT-Creation-Date: 2023-11-06 19:27+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -144,11 +144,11 @@ msgstr "ایکس ام ال نامعتبر است"
 msgid "xml is going to update"
 msgstr "ایکس ام ال در حال بروزرسانی است"
 
-#: rss_feed/settings.py:173
+#: rss_feed/settings.py:174
 msgid "Persian"
 msgstr "فارسی"
 
-#: rss_feed/settings.py:174
+#: rss_feed/settings.py:175
 msgid "English"
 msgstr "انگلیسی"
 
