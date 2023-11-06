@@ -15,3 +15,4 @@ new_t = "<(?P<tag>[^\/\<\>\[\]\- ]{1,})(?P<attribute>\s*((\S*)=\"([^\"]*?)\")*?[
 
 # <(?P<tag>[^\/<>\[\]\s]{1,})(?P<attribute>\s+[^<>\[\]\s-]+=\"[^\"]*\")*>(?P<value>[\d\w\n\s\S]*?)<\/(?P=tag)>|(<(?P<self_tag>[^\/<>\[\]\s-]{1,})(?P<self_attribute>\s+[^<>\[\]\s]+=\"[^\"]*\")*\/>)
 
+tag_attr_value_final = "<(?P<tag>[^\/<>\[\]\s]{3,})(?P<attribute>\s+[^\<\>\[\]]*)?>(?P<value>[\s\S]*?)<\/(?P=tag)>|(<(?P<self_tag>[^\/<>\[\]\s-]{1,})(?P<self_attribute>\s+[^\<\>\[\]]*?)\/>)"
